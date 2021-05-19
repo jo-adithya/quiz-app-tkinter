@@ -1,7 +1,10 @@
+from question import Question
+from data import question_data
+import html
+
 class Quiz:
     def __init__(self):
-        self.questions = [Question(question["text"], question["answer"]) for question in question_data]
-        # noinspection PyTypeChecker
+        self.questions = [Question(question["question"], question["correct_answer"]) for question in question_data]
         self.questions.insert(0, '')
         self.number = 1
         self.score = 0
@@ -26,5 +29,6 @@ class Quiz:
         self.next_question()
 
     def next_question(self):
-        user_ans = input(f"Q.{self.number}: {self.questions[self.number].question} (True/False)?: ").capitalize()
+        user_ans = input(f"Q.{self.number}: {html.unescape(self.questions[self.number].question)} "
+                         f"(True/False)?: ").capitalize()
         self.check_answer(user_ans)
